@@ -66,7 +66,7 @@ class Form {
         $fields[$f]['validate'] = array();
       }
 
-      if (in_array($fields[$f]['validate'], 'confirmed')) {
+      if (in_array('confirmed', $fields[$f]['validate'])) {
         $fields[$f . '_confirmed'] = array_merge($fields[$f], array(
           'field' => $f . '_confirmed',
           'autoadded' => true,
