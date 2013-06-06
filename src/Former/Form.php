@@ -116,6 +116,9 @@ class Form {
         case 'bool':
           $trimmed = !empty($trimmed) ? "true" : "";
           break;
+        case 'enum':
+          $spec['validate'][] = 'in:' . implode(',', array_keys($spec['options']));
+          break;
       }
 
       $validate[$field] = $spec['validate'];
