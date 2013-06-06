@@ -1,0 +1,26 @@
+{
+    "name": "jonhoo/laravel-former",
+    "license": "MIT",
+    "description": "Laravel form library",
+    "version": "0.0.1",
+    "keywords": ["library", "form", "laravel"],
+    "homepage": "https://github.com/jonhoo/laravel-former",
+    "authors": [
+        {
+            "name": "Jon Gjengset",
+            "homepage": "https://github.com/jonhoo",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "laravel": ">=4.0.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-0": {
+            "Former": "src/"
+        }
+    }
+}
