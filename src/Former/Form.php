@@ -50,7 +50,6 @@ class Form {
    * $fields should be indexed by field name, and each field should be an array
    *   with any of the following indices:
    *   - type: text|wide|long|number|date|email|phone|bool
-   *   - name: <human readable field name>
    *   - validate: <array of Validator rules>
    *   - padto: <left-pad with zeros to given length>
    *   - option: <for enum: array of value => title>
@@ -71,7 +70,6 @@ class Form {
         $fields[$f . '_confirmation'] = array_merge($fields[$f], array(
           'field' => $f . '_confirmation',
           'autoadded' => true,
-          'name' => $fields[$f]['name'] . ' ' . Lang::get('again'),
         ));
       }
 
@@ -80,6 +78,10 @@ class Form {
 
     $this->_fields = $fields;
     $this->_messages = $messages;
+  }
+
+  protected function getFieldName($spec) {
+    return Lang::get('validation.attributes.' . $spec['field']);
   }
 
   public function setSource($source) {
@@ -248,7 +250,7 @@ class Form {
 
     $o = "";
     $o .= '<div class="control-group input-' . $spec['type'] . ($failed ? ' error' : '') . '">';
-      $o .= '<label class="control-label" for="' . $spec['field']. '">' . $spec['name'] . '</label>';
+      $o .= '<label class="control-label" for="' . $spec['field']. '">' . $this->getFieldName($spec) . '</label>';
       $o .= '<div class="controls">';
         $o .= self::_field($spec, $bestValue);
         if ($failed) {
