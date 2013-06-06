@@ -2,6 +2,8 @@
 
 namespace Former;
 
+use Illuminate\Support\Facades\Validator;
+
 class Form {
 
   /**
@@ -22,7 +24,7 @@ class Form {
     }
 
     if (is_array($x) && array_key_exists($f, $x)) {
-      return $x->$f;
+      return $x[$f];
     }
 
     if (is_object($x) && property_exists($x, $f)) {
@@ -47,7 +49,7 @@ class Form {
    *   with any of the following indices:
    *   - type: text|wide|long|number|date|email|phone|bool
    *   - name: <human readable field name>
-   *   - validate: <array of Validate rules>
+   *   - validate: <array of Validator rules>
    *   - padto: <left-pad with zeros to given length>
    *   - option: <for enum: array of value => title>
    *   - default: <for enum: default value>
@@ -108,7 +110,7 @@ class Form {
           $spec['validate'][] = 'email';
           break;
         case 'phone':
-          $spec['validate'][] = 'regex:^\+?[\d ]+$';
+          $spec['validate'][] = 'regex:/^\+?[\d ]+$/';
           break;
         case 'bool':
           $trimmed = !empty($trimmed) ? "true" : "";
@@ -120,10 +122,10 @@ class Form {
     }
 
     if (!is_null($this->_messages)) {
-      return Validate::make($data, $validate, $this->_messages);
+      return Validator::make($data, $validate, $this->_messages);
     }
 
-    return Validate::make($data, $validate);
+    return Validator::make($data, $validate);
   }
 
   /**
