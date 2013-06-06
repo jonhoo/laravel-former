@@ -161,7 +161,7 @@ class Form {
       default:
         $type = $spec['type'];
 
-        if (in_array($type, self::textAlias)) {
+        if (in_array($type, self::$textAlias)) {
           $type = 'text';
         }
 
@@ -182,11 +182,16 @@ class Form {
   }
 
   /**
-   * Returns a full form field (with label and containers) for the given spec
+   * Returns a full form element (with label and containers) for the given field
    * Data should have been set with setSource and setInput before calling this function.
    */
-  protected static function _fieldset($spec) {
+  protected function fieldset($field) {
 
+    if (!array_key_exists($field, $this->_fields)) {
+      return "";
+    }
+
+    $spec = $this->_fields[$field];
     $s = self::get($this->_source, $spec['field']);
     $i = self::get($this->_input, $spec['field']);
     $bestValue = is_null($i) ? $s : $i;
@@ -208,7 +213,7 @@ class Form {
 
     $o = "";
     $o .= '<div class="control-group input-' . $spec['type'] . ($failed ? ' error' : '') . '">';
-      $o .= '<label class="control-label" for="' . $fieldName . '">' . $spec['name'] . '</label>';
+      $o .= '<label class="control-label" for="' . $spec['field']. '">' . $spec['name'] . '</label>';
       $o .= '<div class="controls">';
         $o .= self::_field($spec, $bestValue);
         if ($failed) {
@@ -231,20 +236,9 @@ class Form {
     return self::_field($this->_fields[$field]);
   }
 
-  /**
-   * Return the full form element for the given field
-   */
-  public function fieldset($field) {
-    if (!array_key_exists($field, $this->_fields)) {
-      return "";
-    }
-
-    return self::_fieldset($this->_fields[$field]);
-  }
-
   public function fields() {
     $o = '';
-    foreach ($this->_fields as $f) {
+    foreach (array_keys($this->_fields) as $f) {
       $o .= $this->fieldset($f);
     }
     return $o;
