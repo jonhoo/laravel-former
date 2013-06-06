@@ -185,6 +185,37 @@ class Form {
   }
 
   /**
+   * Returns the best value for the given field based on the current user input
+   * and the data source. User input is preferred over source data.
+   */
+  public function bestValue($field) {
+    if (!array_key_exists($field, $this->_fields)) {
+      return null;
+    }
+
+    $spec = $this->_fields[$field];
+    $s = self::get($this->_source, $spec['field']);
+    $i = self::get($this->_input, $spec['field']);
+    $bestValue = is_null($i) ? $s : $i;
+
+    switch ($spec['type']) {
+      case 'bool':
+        if (!is_null($this->_input) && is_null($i)) {
+          return false;
+        }
+        break;
+
+      case 'enum':
+        if (empty($bestValue)) {
+          return $spec['default'];
+        }
+        break;
+    }
+
+    return $bestValue;
+  }
+
+  /**
    * Returns a full form element (with label and containers) for the given field
    * Data should have been set with setSource and setInput before calling this function.
    */
@@ -195,24 +226,8 @@ class Form {
     }
 
     $spec = $this->_fields[$field];
-    $s = self::get($this->_source, $spec['field']);
-    $i = self::get($this->_input, $spec['field']);
-    $bestValue = is_null($i) ? $s : $i;
-
     $failed = !is_null($this->_errors) && $this->_errors->has($spec['field']);
-
-    switch ($spec['type']) {
-      case 'bool':
-        if (!is_null($this->_input) && is_null($i)) {
-          $bestValue = false;
-        }
-        break;
-      case 'enum':
-        if (empty($bestValue)) {
-          $bestValue = $spec['default'];
-        }
-        break;
-    }
+    $bestValue = $this->bestValue($field);
 
     $o = "";
     $o .= '<div class="control-group input-' . $spec['type'] . ($failed ? ' error' : '') . '">';
