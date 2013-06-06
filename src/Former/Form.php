@@ -210,7 +210,10 @@ class Form {
 
       case 'enum':
         if (empty($bestValue)) {
-          return $spec['default'];
+          if (array_key_exists('default', $spec)) {
+            return $spec['default'];
+          }
+          return null;
         }
         break;
     }
