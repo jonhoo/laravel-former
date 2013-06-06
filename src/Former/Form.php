@@ -239,9 +239,13 @@ class Form {
     return self::_field($this->_fields[$field]);
   }
 
+  public function fieldSpecs() {
+    return $this->_fields;
+  }
+
   public function fields() {
     $o = '';
-    foreach (array_keys($this->_fields) as $f) {
+    foreach ($this->fieldSpecs() as $f) {
       $o .= $this->fieldset($f);
     }
     return $o;
