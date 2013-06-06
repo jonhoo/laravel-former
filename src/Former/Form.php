@@ -123,7 +123,7 @@ class Form {
           $spec['validate'][] = 'regex:/^\+?[\d ]+$/';
           break;
         case 'bool':
-          $trimmed = !empty($trimmed) ? "true" : "";
+          $trimmed = !empty($trimmed) ? "yes" : "";
           break;
         case 'enum':
           $spec['validate'][] = 'in:' . implode(',', array_keys($spec['options']));
@@ -277,7 +277,7 @@ class Form {
 
   public function fields() {
     $o = '';
-    foreach ($this->fieldSpecs() as $f) {
+    foreach (array_keys($this->fieldSpecs()) as $f) {
       $o .= $this->fieldset($f);
     }
     return $o;
