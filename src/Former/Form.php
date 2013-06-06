@@ -68,8 +68,8 @@ class Form {
       }
 
       if (in_array('confirmed', $fields[$f]['validate'])) {
-        $fields[$f . '_confirmed'] = array_merge($fields[$f], array(
-          'field' => $f . '_confirmed',
+        $fields[$f . '_confirmation'] = array_merge($fields[$f], array(
+          'field' => $f . '_confirmation',
           'autoadded' => true,
           'name' => $fields[$f]['name'] . ' ' . Lang::get('again'),
         ));
