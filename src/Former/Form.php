@@ -66,6 +66,14 @@ class Form {
         $fields[$f]['validate'] = array();
       }
 
+      if (in_array($fields[$f]['validate'], 'confirmed')) {
+        $fields[$f . '_confirmed'] = array_merge($fields[$f], array(
+          'field' => $f . '_confirmed',
+          'autoadded' => true,
+          'name' => $fields[$f]['name'] . ' ' . Lang::get('again'),
+        ));
+      }
+
       $fields[$f]['field'] = $f;
     }
 
@@ -121,7 +129,9 @@ class Form {
           break;
       }
 
-      $validate[$field] = $spec['validate'];
+      if (!array_key_exists('autoadded', $spec)) {
+        $validate[$field] = $spec['validate'];
+      }
       $data[$field] = $trimmed;
     }
 
