@@ -225,7 +225,7 @@ class Form {
    * Returns a full form element (with label and containers) for the given field
    * Data should have been set with setSource and setInput before calling this function.
    */
-  protected function fieldset($field) {
+  public function fieldset($field) {
 
     if (!array_key_exists($field, $this->_fields)) {
       return "";
