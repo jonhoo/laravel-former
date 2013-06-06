@@ -3,6 +3,7 @@
 namespace Former;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\MessageBag;
 
 class Form {
