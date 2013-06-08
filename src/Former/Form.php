@@ -92,10 +92,6 @@ class Form {
     $this->_input = $input;
   }
 
-  public function setErrors(MessageBag $errors) {
-    $this->_errors = $errors;
-  }
-
   /**
    * Validate incoming data from this form based on the data given to setInput
    * Returns a Validate object
@@ -139,10 +135,15 @@ class Form {
     }
 
     if (!is_null($this->_messages)) {
-      return Validator::make($data, $validate, $this->_messages);
+      $validator = Validator::make($data, $validate, $this->_messages);
+    } else {
+      $validator = Validator::make($data, $validate);
     }
 
-    return Validator::make($data, $validate);
+    if ($validator->fails()) {
+      $this->_errors = $validator->messages();
+    }
+    return $validator;
   }
 
   /**
