@@ -282,8 +282,24 @@ class Form {
     return self::_field($this->_fields[$field]);
   }
 
+  public function fieldName($field) {
+    if (!array_key_exists($field, $this->_fields)) {
+      return "";
+    }
+
+    return $this->getFieldName($this->_fields[$field]);
+  }
+
   public function fieldSpecs() {
     return $this->_fields;
+  }
+
+  public function fieldSpec($field) {
+    if (!array_key_exists($field, $this->_fields)) {
+      return null;
+    }
+
+    return $this->_fields[$field];
   }
 
   public function fields() {
