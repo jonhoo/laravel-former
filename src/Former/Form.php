@@ -29,7 +29,7 @@ class Form {
       return $x[$f];
     }
 
-    if (is_object($x) && property_exists($x, $f)) {
+    if (is_object($x) && isset($x->$f)) {
       return $x->$f;
     }
 
