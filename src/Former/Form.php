@@ -205,6 +205,7 @@ class Form {
   /**
    * Returns the best value for the given field based on the current user input
    * and the data source. User input is preferred over source data.
+   * Will return "" for password fields
    */
   public function bestValue($field) {
     if (!array_key_exists($field, $this->_fields)) {
@@ -231,6 +232,8 @@ class Form {
           return null;
         }
         break;
+      case 'password':
+        return "";
     }
 
     return $bestValue;
