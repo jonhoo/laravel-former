@@ -58,6 +58,10 @@ class Form {
    */
   public function __construct($fields, $messages = null) {
     foreach ($fields as $f => $spec) {
+      if (strpos($f, '_confirmation') !== false) {
+        continue;
+      }
+
       if (!array_key_exists('type', $spec)) {
         $fields[$f]['type'] = 'text';
       }
