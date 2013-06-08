@@ -152,10 +152,11 @@ class Form {
     $ni = 'name="' . $spec['field'] . '" id="' . $spec['field'] . '"';
     $e = htmlspecialchars($bestValue);
     $r = in_array('required', $spec['validate']) ? 'required' : '';
+    $pl = empty($spec['placeholder']) ? '' : 'placeholder="' . htmlspecialchars($spec['placeholder']) . '"';
 
     switch ($spec['type']) {
       case 'long':
-        return "<textarea class=\"input-long\" $ni rows=\"10\" cols=\"40\" $r>$e</textarea>";
+        return "<textarea class=\"input-long\" $ni $pl rows=\"10\" cols=\"40\" $r>$e</textarea>";
       case 'bool':
         if ($bestValue) {
           return "<input type=\"checkbox\" $ni value=\"yes\" checked $r />";
@@ -196,7 +197,7 @@ class Form {
           $type = 'tel';
         }
 
-        return "<input type=\"$type\" $ni value=\"$e\" $r />";
+        return "<input type=\"$type\" $ni $pl value=\"$e\" $r />";
     }
   }
 
