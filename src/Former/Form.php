@@ -182,7 +182,17 @@ class Form {
         $s .= '</select>';
         return $s;
       case 'date':
-        return "<input type=\"date\" $ni value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
+        $after = $before = "";
+        foreach ($spec['validate'] as $s) {
+          if (strpos($s, 'after:') === 0) {
+            $after = 'data-after="' . date('Y-m-d', strtotime(substr($s, strlen('after:')))) . '"';
+          }
+          if (strpos($s, 'before:') === 0) {
+            $before = 'data-before="' . date('Y-m-d', strtotime(substr($s, strlen('before:')))) . '"';
+          }
+        }
+
+        return "<input type=\"date\" $before $after $ni value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
       default:
         $type = $spec['type'];
 
