@@ -84,21 +84,45 @@ class Form {
       }
 
       if (!array_key_exists('type', $spec)) {
-        $fields[$f]['type'] = 'text';
+        $spec['type'] = 'text';
       }
 
       if (!array_key_exists('validate', $spec)) {
-        $fields[$f]['validate'] = array();
+        $spec['validate'] = array();
       }
+
+      switch ($spec['type']) {
+        case 'number':
+          $spec['validate'][] = 'numeric';
+          break;
+        case 'text':
+        case 'wide':
+        case 'long':
+          break;
+        case 'date':
+          $spec['validate'][] = 'date_format:Y-m-d';
+          break;
+        case 'email':
+          $spec['validate'][] = 'email';
+          break;
+        case 'phone':
+          $spec['validate'][] = 'regex:/^\+?[\d ]+$/';
+          break;
+        case 'enum':
+          $spec['validate'][] = 'in:' . implode(',', array_keys($spec['options']));
+          break;
+      }
+
+      $spec['field'] = $f;
+      $fields[$f] = $spec;
 
       if (in_array('confirmed', $fields[$f]['validate'])) {
-        $fields[$f . '_confirmation'] = array_merge($fields[$f], array(
+        $fields[$f . '_confirmation'] = array_merge($spec, array(
           'field' => $f . '_confirmation',
           'autoadded' => true,
+          'isconfirm' => true,
         ));
       }
-
-      $fields[$f]['field'] = $f;
     }
 
     $this->_fields = $fields;
@@ -140,31 +164,6 @@ class Form {
 
     foreach ($this->_fields as $field => $spec) {
       $trimmed = trim(self::get($this->_input, $field, ""));
-
-      switch ($spec['type']) {
-        case 'number':
-          $spec['validate'][] = 'numeric';
-          break;
-        case 'text':
-        case 'wide':
-        case 'long':
-          break;
-        case 'date':
-          $spec['validate'][] = 'date_format:Y-m-d';
-          break;
-        case 'email':
-          $spec['validate'][] = 'email';
-          break;
-        case 'phone':
-          $spec['validate'][] = 'regex:/^\+?[\d ]+$/';
-          break;
-        case 'bool':
-          $trimmed = !empty($trimmed) ? "yes" : "";
-          break;
-        case 'enum':
-          $spec['validate'][] = 'in:' . implode(',', array_keys($spec['options']));
-          break;
-      }
 
       if (!array_key_exists('autoadded', $spec)) {
         $validate[$field] = $spec['validate'];
@@ -212,7 +211,7 @@ class Form {
         foreach ($spec['options'] as $value => $title) {
           $s .= '<option value="' . htmlspecialchars($value) . '"';
           if ($value == $bestValue) {
-            $s .= ' selected="selected"';
+            $s .= ' selected';
           }
           $s .= '>' . htmlspecialchars($title) . '</option>';
         }
@@ -230,7 +229,7 @@ class Form {
           }
         }
 
-        return "<input type=\"date\" $ni value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
+        return "<input type=\"date\" $ni $before $after value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
       default:
         $type = $spec['type'];
 
@@ -244,6 +243,7 @@ class Form {
 
         if (!empty($spec['padto']) && !empty($bestValue)) {
           $bestValue = str_pad($bestValue, $spec['padto'], '0', STR_PAD_LEFT);
+          $e = htmlspecialchars($bestValue);
         }
 
         if ($type == 'phone') {
@@ -270,6 +270,10 @@ class Form {
     }
 
     $spec = $this->_fields[$field];
+    if (isset($spec['isconfirm']) && $spec['isconfirm']) {
+      return null;
+    }
+
     $s = self::get($this->_source, $spec['field']);
     $i = self::get($this->_input, $spec['field']);
     $bestValue = is_null($i) ? $s : $i;
