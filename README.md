@@ -2,6 +2,8 @@
 Former is a form library for Laravel that provides HTML5 form field types,
 validation and various other convenient luxuries for modern app development.
 
+Build status: [![Build Status](https://travis-ci.org/Jonhoo/laravel-former.png)](https://travis-ci.org/Jonhoo/laravel-former)
+
 ## Notes on usage until examples are in place
 Former will validate all data that is passed to it, but will not change the
 array that is given to it. To avoid mass-assignment attacks and such, use

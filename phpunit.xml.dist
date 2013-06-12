@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="tests/bootstrap.php" backupGlobals="false" colors="true">
+    <testsuites>
+        <testsuite name="Former Tests Suite">
+            <directory>tests/Former/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">src/Former/</directory>
+        </whitelist>
+    </filter>
+</phpunit>
