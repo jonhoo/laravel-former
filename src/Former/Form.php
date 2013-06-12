@@ -312,6 +312,26 @@ class Form {
     return $this->_fields[$field];
   }
 
+  public function setFieldSpec($field, $spec) {
+    $this->_fields[$field] = $spec;
+  }
+
+  public function setFieldSpecAttr($field, $attr, $val) {
+    if (!array_key_exists($field, $this->_fields)) {
+      return false;
+    }
+
+    if (!array_key_exists($attr, $this->_fields[$field])) {
+      $this->_fields[$field] = array($attr => $val);
+      return true;
+    } else if (is_array($this->_fields[$field])) {
+      $this->_fields[$field][$attr] = array($attr => $val);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public function fields() {
     $o = '';
     foreach (array_keys($this->fieldSpecs()) as $f) {
