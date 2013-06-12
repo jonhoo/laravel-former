@@ -282,6 +282,46 @@ class Form {
   }
 
   /**
+   * Returns a full display-only element (with label and containers) for the given field
+   * Data should have been set with setSource before calling this function.
+   */
+  public function displayfield($field, $yes = 'Yes', $no = 'No') {
+
+    if (!array_key_exists($field, $this->_fields)) {
+      return "";
+    }
+
+    $spec = $this->_fields[$field];
+    $bestValue = $this->bestValue($field);
+
+    switch ($spec['type']) {
+      case 'enum':
+        if (array_key_exists($bestValue, $spec['options'])) {
+          $bestValue = $spec['options'][$bestValue];
+        } else if (isset($spec['default'])) {
+          $bestValue = $spec['options'][$spec['default']];
+        }
+        break;
+      case 'bool':
+        $bestValue = $bestValue ? $yes : $no;
+      break;
+
+    }
+
+    if (!empty($spec['padto']) && !empty($bestValue)) {
+      $bestValue = str_pad($bestValue, $spec['padto'], '0', STR_PAD_LEFT);
+    }
+
+    $o = "";
+    $o .= '<div class="control-group input-' . $spec['type'] . '">';
+      $o .= '<dt class="control-label">' . $this->getFieldName($spec) . '</dt>';
+      $o .= '<dd class="controls">' . htmlspecialchars($bestValue) . '</dd>';
+    $o .= '</div>';
+
+    return $o;
+  }
+
+  /**
    * Return the input element for the given field
    */
   public function field($field) {
@@ -337,6 +377,15 @@ class Form {
     foreach (array_keys($this->fieldSpecs()) as $f) {
       $o .= $this->fieldset($f);
     }
+    return $o;
+  }
+
+  public function displayfields() {
+    $o = '<dl>';
+    foreach (array_keys($this->fieldSpecs()) as $f) {
+      $o .= $this->displayfield($f);
+    }
+    $o .= '</dl>';
     return $o;
   }
 }
