@@ -3,6 +3,7 @@
 /**
  * Former\Form is a Laravel helper class for configuring, dispaying and
  * validating forms
+ * @author Jon Gjengset <jon@tsp.io>
  * @package Former
  */
 
