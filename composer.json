@@ -2,7 +2,7 @@
     "name": "jonhoo/laravel-former",
     "license": "MIT",
     "description": "Laravel form library",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "keywords": ["library", "form", "laravel"],
     "homepage": "https://github.com/jonhoo/laravel-former",
     "authors": [

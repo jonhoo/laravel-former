@@ -192,7 +192,7 @@ class Form {
           }
         }
 
-        return "<input type=\"date\" $before $after $ni value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
+        return "<input type=\"date\" $ni value=\"$e\" placeholder=\"YYYY-MM-DD\" $r />";
       default:
         $type = $spec['type'];
 
