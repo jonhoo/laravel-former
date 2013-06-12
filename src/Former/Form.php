@@ -329,7 +329,8 @@ class Form {
       return "";
     }
 
-    return self::_field($this->_fields[$field]);
+    $bestValue = $this->bestValue($field);
+    return self::_field($this->_fields[$field], $bestValue);
   }
 
   public function fieldName($field) {
