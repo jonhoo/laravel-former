@@ -1,0 +1,166 @@
+/******************************************************************************\
+ *                                                                            *
+ *                                   FORMS                                    *
+ *                                                                            *
+\******************************************************************************/
+.control-group {
+  margin-bottom: 1em;
+}
+@media screen and (min-width: 40em) {
+  .control-group {
+    float: left;
+    width: 50%;
+  }
+  .vertical-controls .control-group {
+    float: none;
+    width: 100%;
+  }
+}
+form { margin: 1em 0; }
+input { vertical-align: middle; }
+@media screen and (min-width: 50em) {
+  form { margin: 0; }
+}
+  .control-group input, .control-group select, .control-group textarea {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    padding: .5em;
+    height: 2.5em;
+    border: 1px solid #DDD;
+    background: #F7F7F7;
+    background: rgba(240, 240, 240, 0.7);
+    vertical-align: top;
+  }
+@media screen and (min-width: 40em) {
+  .control-group input, .control-group select, .control-group textarea {
+    width: 95%;
+  }
+}
+    .vertical-controls .control-group input,
+    .vertical-controls .control-group select,
+    .vertical-controls .control-group textarea {
+      width: 100%;
+    }
+  .control-group input[type="radio"], .control-group input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    border: none;
+    background: none;
+    vertical-align: middle;
+  }
+  .control-group .control-label {
+    display: block;
+    line-height: 1.5em;
+    height: 1.5em;
+    vertical-align: middle;
+  }
+  .nolabels .control-label { display: none; }
+  .control-group .controls {
+    line-height: 2.5em;
+    height: 2.5em;
+  }
+@media screen and (max-width: 40em) {
+  .control-group {
+    clear: left;
+  }
+  .control-group.input-bool .controls {
+    float: left;
+    padding-right: .5em;
+  }
+}
+@media screen and (min-width: 40em) {
+  .control-group .control-label {
+    line-height: 2em;
+    height: 2em;
+  }
+}
+  .control-group.input-bool.inline .controls {
+    float: left;
+    padding-right: .5em;
+  }
+  .control-group.error label { color: darkred; font-weight: bold; }
+  .control-group.error input, .control-group.error select, .control-group.error textarea { border: 1px solid darkred; }
+  .control-group .help-inline { display: none; }
+@media screen and (min-width: 40em) {
+  .input-phone, .input-number, .input-select, .input-short, .input-date, .input-password, .input-bool {
+    width: 25%;
+  }
+    .input-phone input, .input-number input, .input-select select, .input-short input,
+    .input-date input, .input-password input {
+      width: 90%;
+    }
+}
+  .input-wide, .input-long {
+    clear: both;
+    display: block;
+    float: none;
+    width: auto;
+  }
+    .input-wide input, .input-long textarea { width: 100%; }
+    .input-long textarea { height: 200px; }
+    .input-long .controls { height: auto; }
+
+  td select { margin-bottom: 0; }
+
+  .inline-controls .control-group {
+    width: auto;
+    margin-bottom: 0;
+  }
+    .inline-controls .controls { max-width: 17em; }
+    .inline-controls .control-group input,
+    .inline-controls .control-group select,
+    .inline-controls .control-group textarea {
+      width: 100%;
+    }
+    .inline-controls .input-bool input {
+      width: auto;
+    }
+  .form-actions {
+    clear: both;
+    text-align: left;
+    padding: 1em;
+    margin-top: 1em;
+    border-top: 1px solid #DDD;
+    background: #F7F7F7;
+    background: rgba(240, 240, 240, 0.7);
+  }
+  .inline-controls .form-actions {
+    float: left;
+    clear: none;
+    margin-top: 0;
+    padding: 0;
+    border: none;
+    background: none;
+  }
+@media screen and (max-width: 40em) {
+  .inline-controls .control-group,
+  .inline-controls .form-actions {
+    clear: both;
+  }
+  .inline-controls .control-group + .control-group,
+  .inline-controls .control-group + .form-actions,
+  .inline-controls .control-group + script + .form-actions {
+    margin-top: 1em;
+  }
+}
+  .vertical-controls {
+    width: 20em;
+    max-width: 100%;
+  }
+  .vertical-controls .control-group + .control-group,
+  .vertical-controls .control-group + .form-actions,
+  .vertical-controls .control-group + script + .form-actions {
+    margin-top: 1em;
+  }
+@media screen and (min-width: 40em) {
+  .inline-controls .control-group + .control-group,
+  .inline-controls .control-group + .form-actions,
+  .inline-controls .control-group + script + .form-actions {
+    margin-left: .5em;
+  }
+  .inline-controls .controls { width: 20em; }
+  .inline-controls .form-actions { margin-top: 2em; }
+  .inline-controls.nolabels .form-actions { margin-top: 0; }
+}
