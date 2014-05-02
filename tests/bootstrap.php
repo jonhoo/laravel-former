@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 $container = new Illuminate\Container\Container;
 $container['path'] = __DIR__;
-$container['config'] = array('app.locale'=>'en');
+$container['config'] = array('app.locale'=>'en', 'app.fallback_locale'=>'en');
 
 $providers = array(
     'Illuminate\Events\EventServiceProvider',

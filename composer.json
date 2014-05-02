@@ -2,7 +2,7 @@
     "name": "jonhoo/laravel-former",
     "license": "MIT",
     "description": "Laravel form library",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "keywords": ["library", "form", "laravel"],
     "homepage": "https://github.com/jonhoo/laravel-former",
     "authors": [
@@ -14,7 +14,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "laravel/framework": "4.0.*"
+        "laravel/framework": "4.1.*"
     },
     "require-dev": {
     },
